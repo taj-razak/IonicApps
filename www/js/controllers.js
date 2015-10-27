@@ -56,8 +56,8 @@ angular.module('starter.controllers', [])
 .controller('searchController', function($scope) {
 	angular.extend($scope, {
 			centerProperty: {
-				lat: 22,
-				lng: 77
+				lat: 17.6868159,
+				lng: 83.2184815
 			},
 			zoomProperty: 8,
 			markersProperty: [ {
