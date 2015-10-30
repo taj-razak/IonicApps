@@ -1,0 +1,39 @@
+
+<ion-view view-title="Dashboard">
+  <ion-content>
+    <div class="list card" ng-repeat="Userpost in Userposts">
+
+      <div class="item item-avatar">
+        <img src="mcfly.jpg">
+        <h2>{{Userpost.userProfileName | uppercase}}</h2>
+        <p>{{Userpost.post_time|date:'MMMM dd , yyyy'}}</p>
+      </div>
+
+      <div class="item item-body">
+        <img class="full-image" src="img/post.jpg">
+        <p id="postData">
+          {{Userpost.post_content}}
+        </p>
+        <p>
+          <a href="#" class="subdued">{{Userpost.likes.length}} Like</a>
+          <a href="#" class="subdued">{{Userpost.comments.length}} Comments</a>
+        </p>
+      </div>
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#" ng-click="clicked(Userpost)">
+            <i class="icon ion-thumbsup" ng-class="Userpost.color"></i>
+            Like
+          </a>
+          <a class="tab-item" href="#" ng-click="showComment(Userpost.comments)" >
+            <i class="icon ion-chatbox" ng-class="Userpost.custCommentColor"></i>
+            Comment
+          </a>
+          <a class="tab-item" href="#" ng-click="sharePost(Userpost)">
+            <i class="icon ion-share" ng-class="Userpost.custShareColor"></i>
+            Share
+          </a>
+        </div>
+
+      </div>
+    </ion-content>
+  </ion-view>

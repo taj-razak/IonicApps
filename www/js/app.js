@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers',"google-maps"])
+angular.module('starter', ['ionic', 'starter.controllers',"google-maps",'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -25,11 +25,9 @@ angular.module('starter', ['ionic', 'starter.controllers',"google-maps"])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/menu.html'
   })
 
   .state('app.search', {
@@ -43,22 +41,22 @@ angular.module('starter', ['ionic', 'starter.controllers',"google-maps"])
   })
 
   .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
+    url: '/browse',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/browse.html'
       }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
+    }
+  })
+  .state('app.playlists', {
+    url: '/playlists',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/playlists.html',
+        controller: 'PlaylistsCtrl'
       }
-    })
+    }
+  })
 
   .state('app.single', {
     url: '/playlists/:playlistId',
@@ -68,7 +66,22 @@ angular.module('starter', ['ionic', 'starter.controllers',"google-maps"])
         controller: 'PlaylistCtrl'
       }
     }
+  })
+  .state('app.posts',{
+    url:'/posts',
+    views:{
+      'menuContent':{
+        templateUrl:'templates/posts.html',
+        controller:'PostsCtrl'
+      }
+    }
+  })
+  .state('login',{
+    url:'/login',
+    templateUrl:'templates/login.html',
+    controller: 'AppCtrl'
+
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/login');
 });

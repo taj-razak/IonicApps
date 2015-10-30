@@ -1,0 +1,23 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Add Comment</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" placeholder="Write Your Comment">
+      </label>
+      <button class="button button-small button-positive">
+        Comment
+      </button>
+    </div>
+    <ul class="list">
+        <li class="item" ng-repeat="comment in UserComments">
+          <b>{{comment.user}}</b>:- {{comment.cmt}}
+        </li>
+    </ul>
+  </ion-content>
+</ion-modal-view>

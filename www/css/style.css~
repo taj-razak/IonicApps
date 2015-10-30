@@ -1,0 +1,9 @@
+/* Empty. Add your own CSS if you like */
+#head{
+color:blue;
+}
+#menus ion-item{
+color:green;
+backgroud-color:grey;
+}
+

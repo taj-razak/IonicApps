@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicSlideBoxDelegate) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicSlideBoxDelegate,$cordovaOauth,$ionicPopup,$location,$http) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,38 +11,43 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
+  $scope.UserError=true;
 
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
-  };
+    // $cordovaOauth.google("585179350325-9hoi8nv3g31blsgfrromi291rmvesd92.apps.googleusercontent.com", ['https://www.googleapis.com/auth/plus.login', 'https://www.google.com/m8/feeds/contacts/default/full']).then(function(result) {
+    //   $ionicPopup.alert({
+    //     title: error,
+    //     template: 'It might taste good'
+    //   });
+    // }, function(error) {
+    //   $ionicPopup.alert({
+    //     title: error,
+    //     template: 'It might taste good'
+    //   });
+    // });
+    console.log($scope.loginData.username+","+$scope.loginData.password);
+    $http.post('http://localhost:3000/IonicLogin',{useremail:$scope.loginData.username,userpassword:$scope.loginData.password}).then(function(obj){
+      console.log(obj.data)
+      if(obj.data==true)
+      {
+        $location.path('/app/playlists');
+      }
+      else{
+        $ionicPopup.alert({
+          title: 'Login Error',
+          template: '<center><p style="color:red;text-weight:bold;">Invalid Email or Password</p></center>'
+        });
+      }
 
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    })
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+
+.controller('PlaylistsCtrl', function($scope,$ionicPopup) {
   $scope.playlists = [
     { title: 'Reggae', id: 1 },
     { title: 'Chill', id: 2 },
@@ -51,22 +56,87 @@ angular.module('starter.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
+
 })
 
 .controller('searchController', function($scope) {
-	angular.extend($scope, {
-			centerProperty: {
-				lat: 17.6868159,
-				lng: 83.2184815
-			},
-			zoomProperty: 8,
-			markersProperty: [ {
-					latitude:  17.6868159,
-					longitude: 83.2184815
-				}],
-			clickedLatitudeProperty: null,	
-			clickedLongitudeProperty: null,
-		});
+  angular.extend($scope, {
+    centerProperty: {
+      lat: 17.6868159,
+      lng: 83.2184815
+    },
+    zoomProperty: 8,
+    markersProperty: [ {
+      latitude:  17.6868159,
+      longitude: 83.2184815
+    }],
+    clickedLatitudeProperty: null,
+    clickedLongitudeProperty: null,
+  });
 
 
-});
+})
+.controller('PostsCtrl',function($scope,$http,$ionicModal){
+  $scope.Userposts={};
+
+
+    $ionicModal.fromTemplateUrl('templates/comments.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+
+
+
+
+  $http.get('http://localhost:3000/getPosts').then(function(Udata){
+    console.log(Udata);
+    $scope.Userposts=Udata.data;
+
+  })
+
+
+
+  $scope.clicked=function(Like){
+
+    if(Like.color==undefined)
+    {
+      console.log(Like.color+"custColor")
+      Like.color="custColor";
+
+    }    else
+    {
+      console.log(Like.color)
+      Like.color=undefined;
+    }
+  }
+
+  $scope.showComment=function(Like){
+    // if(Like.visibleStatus==undefined)
+    // {
+    //   Like.visibleStatus=true;
+    //   Like.custCommentColor="custCommentColor";
+    // }else{
+    //   Like.visibleStatus=undefined;
+    //   Like.custCommentColor=undefined;
+    // $scope.modal.show();
+    //
+    // }
+   $scope.UserComments=Like;
+console.log(Like)
+    $scope.modal.show();
+  }
+
+  $scope.sharePost=function(Like){
+    if(Like.custShareColor==undefined)
+    Like.custShareColor="custShareColor";
+    else
+    Like.custShareColor=undefined;
+  }
+  $scope.closeLogin = function() {
+     $scope.modal.hide();
+   };
+
+
+
+})

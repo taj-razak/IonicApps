@@ -1,1 +1,35 @@
 /* Empty. Add your own CSS if you like */
+#head{
+  color:blue;
+}
+#menus ion-item{
+  color:green;
+
+}
+
+.custColor{
+  color:#005CE6;
+}
+.custCommentColor{
+  color:#297C29;
+}
+.custShareColor{
+  color:#AE1CAE;
+}
+#postData{
+  color:Black;
+}
+#loginTitle{
+  color:black;
+  font-style:oblique;
+}
+#loginBoard{
+  padding-top:100px;
+  padding-left:10px;
+  padding-right:10px;
+}
+#loginButton{
+  padding-top:15px;
+  padding-left:10px;
+  padding-right:10px;
+}
