@@ -4,13 +4,13 @@
     <div class="list card" ng-repeat="Userpost in Userposts">
 
       <div class="item item-avatar">
-        <img src="mcfly.jpg">
+        <img src="http://localhost:3000/profile.png">
         <h2>{{Userpost.userProfileName | uppercase}}</h2>
         <p>{{Userpost.post_time|date:'MMMM dd , yyyy'}}</p>
       </div>
 
       <div class="item item-body">
-        <img class="full-image" src="img/post.jpg">
+        <img class="full-image" src="http://localhost:3000/post.jpg">
         <p id="postData">
           {{Userpost.post_content}}
         </p>

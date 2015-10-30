@@ -1,33 +1,10 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicSlideBoxDelegate,$cordovaOauth,$ionicPopup,$location,$http) {
-
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // Form data for the login modal
   $scope.loginData = {};
   $scope.UserError=true;
 
-
-
-  // Open the login modal
   $scope.login = function() {
-    // $cordovaOauth.google("585179350325-9hoi8nv3g31blsgfrromi291rmvesd92.apps.googleusercontent.com", ['https://www.googleapis.com/auth/plus.login', 'https://www.google.com/m8/feeds/contacts/default/full']).then(function(result) {
-    //   $ionicPopup.alert({
-    //     title: error,
-    //     template: 'It might taste good'
-    //   });
-    // }, function(error) {
-    //   $ionicPopup.alert({
-    //     title: error,
-    //     template: 'It might taste good'
-    //   });
-    // });
     console.log($scope.loginData.username+","+$scope.loginData.password);
     $http.post('http://localhost:3000/IonicLogin',{useremail:$scope.loginData.username,userpassword:$scope.loginData.password}).then(function(obj){
       console.log(obj.data)
@@ -73,21 +50,17 @@ angular.module('starter.controllers', [])
     clickedLatitudeProperty: null,
     clickedLongitudeProperty: null,
   });
-
-
 })
+
 .controller('PostsCtrl',function($scope,$http,$ionicModal){
   $scope.Userposts={};
 
 
-    $ionicModal.fromTemplateUrl('templates/comments.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-
-
-
+  $ionicModal.fromTemplateUrl('templates/comments.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
 
   $http.get('http://localhost:3000/getPosts').then(function(Udata){
     console.log(Udata);
@@ -95,10 +68,7 @@ angular.module('starter.controllers', [])
 
   })
 
-
-
   $scope.clicked=function(Like){
-
     if(Like.color==undefined)
     {
       console.log(Like.color+"custColor")
@@ -112,18 +82,8 @@ angular.module('starter.controllers', [])
   }
 
   $scope.showComment=function(Like){
-    // if(Like.visibleStatus==undefined)
-    // {
-    //   Like.visibleStatus=true;
-    //   Like.custCommentColor="custCommentColor";
-    // }else{
-    //   Like.visibleStatus=undefined;
-    //   Like.custCommentColor=undefined;
-    // $scope.modal.show();
-    //
-    // }
-   $scope.UserComments=Like;
-console.log(Like)
+    $scope.UserComments=Like;
+    console.log(Like)
     $scope.modal.show();
   }
 
@@ -134,9 +94,7 @@ console.log(Like)
     Like.custShareColor=undefined;
   }
   $scope.closeLogin = function() {
-     $scope.modal.hide();
-   };
-
-
+    $scope.modal.hide();
+  };
 
 })
